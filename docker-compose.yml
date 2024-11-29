@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-boot-app
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-book-db:3306/books_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - '8080:8080'
+    networks:
+      - springapimysql-net
+    depends_on:
+      - mysql-book-db
+
+    volumes:
+      - .m2:/root/.m2
+
+  mysql-book-db:
+    image: 'mysql:latest'
+    container_name: 'mysql-book-db'
+    restart: always
+    environment:
+      MYSQL_DATABASE: books_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - '3307:3306'
+    networks:
+      - springapimysql-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      retries: 10
+      interval: 3s
+      timeout: 30s
+
+volumes:
+  mysql-data:
+networks:
+  springapimysql-net:
+    name: springboot-mysql-network

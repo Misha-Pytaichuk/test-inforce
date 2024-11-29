@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: test-inforce
+
+  threads:
+    virtual:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
