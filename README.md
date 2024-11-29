@@ -1,7 +1,6 @@
 # test-inforce
 INFORCE Trainee Java Developer task
 
-markdown
 # Інструкція для запуску проекту
 
 ## Запуск проекту
