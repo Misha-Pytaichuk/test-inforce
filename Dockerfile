@@ -1,5 +1,5 @@
 FROM openjdk:21-ae AS build
-LABEL authors="Pytacihuk Mykhailo"
+LABEL authors="Pytaichuk Mykhailo"
 
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
